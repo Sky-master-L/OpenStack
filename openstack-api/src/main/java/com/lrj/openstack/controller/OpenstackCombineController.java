@@ -6,10 +6,7 @@ import com.lrj.openstack.response.ManageResponse;
 import com.lrj.openstack.service.OpenstackCombineService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * ClassName: OpenstackCombineController
@@ -63,6 +60,36 @@ public class OpenstackCombineController {
     @PostMapping("/invoke/checkResource")
     public String checkResource(@RequestBody InvokeInstanceDto invokeInstanceDto){
         return openstackCombineService.checkResource(invokeInstanceDto);
+    }
+
+    /**
+     * 删除实例
+     * @param invokeInstanceDto
+     * @return
+     */
+    @DeleteMapping("/invoke/destroyInstance")
+    public ManageResponse destroyInstance(@RequestBody InvokeInstanceDto invokeInstanceDto){
+        return openstackCombineService.destroyInstance(invokeInstanceDto);
+    }
+
+    /**
+     * 开启实例
+     * @param invokeInstanceDto
+     * @return
+     */
+    @PostMapping("/invoke/startInstance")
+    public ManageResponse startInstance(@RequestBody InvokeInstanceDto invokeInstanceDto){
+        return openstackCombineService.actionInstance(invokeInstanceDto, true);
+    }
+
+    /**
+     * 关闭实例
+     * @param invokeInstanceDto
+     * @return
+     */
+    @PostMapping("/invoke/stopInstance")
+    public ManageResponse stopInstance(@RequestBody InvokeInstanceDto invokeInstanceDto){
+        return openstackCombineService.actionInstance(invokeInstanceDto, false);
     }
 //
 //    @GetMapping("/invoke/sent")

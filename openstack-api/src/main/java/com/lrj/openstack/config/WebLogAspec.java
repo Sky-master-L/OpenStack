@@ -27,7 +27,7 @@ public class WebLogAspec {
     /**
      * 以 controller 包下定义的所有请求为切入点
      */
-    @Pointcut("execution(public * com.ray.qjy.controller..*.*(..))")
+    @Pointcut("execution(public * com.lrj.openstack.controller..*.*(..))")
     public void webLog() {
     }
 

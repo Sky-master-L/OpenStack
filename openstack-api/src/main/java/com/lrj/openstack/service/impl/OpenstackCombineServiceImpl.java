@@ -24,6 +24,7 @@ import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient;
 import org.openstack4j.api.exceptions.ClientResponseException;
 import org.openstack4j.model.common.ActionResponse;
+import org.openstack4j.model.compute.Action;
 import org.openstack4j.model.compute.Flavor;
 import org.openstack4j.model.compute.Server;
 import org.openstack4j.model.compute.VolumeAttachment;
@@ -279,7 +280,97 @@ public class OpenstackCombineServiceImpl implements OpenstackCombineService {
     }
 
     @Override
-    public ManageResponse destroyInstance(Virtual virtual) {
+    public ManageResponse destroyInstance(InvokeInstanceDto invokeInstanceDto) {
+        List<Integer> vids = invokeInstanceDto.getDesktopIds();
+        for (Integer vid : vids) {
+            Virtual virtual = virtualMapper.selectById(vid);
+            OpenstackAuth openstackAuth = checkAuthUser(virtual.getCustomerId());
+            if (ObjectUtils.isEmpty(openstackAuth)) {
+                return ManageResponse.returnFail(100, "用户资源不存在");
+            }
+            Region region = regionService.getRegionInfo(virtual.getRegionId());
+            if (ObjectUtils.isEmpty(region)) {
+                return ManageResponse.returnFail(100, "区域不存在");
+            }
+            ReqUserDto reqUserDto1 = new ReqUserDto(openstackAuth.getCustomerId(),
+                    openstackAuth.getType(), 3, null);
+            OSClient.OSClientV3 os = ((OSClient.OSClientV3) openstackService.getAuthToke(reqUserDto1).getData());
+            os.useRegion(region.getRealName());
+
+            //删除instance
+            if (!ObjectUtils.isEmpty(virtual.getInstanceId())) {
+                Server server = os.compute().servers().get(virtual.getInstanceId());
+                if (!ObjectUtils.isEmpty(server)) {
+                    ActionResponse actionResponse = os.compute().servers().delete(virtual.getInstanceId());
+                    if (actionResponse.getCode() != 200) {
+                        log.error("删除openstack实例：{}失败", virtual.getInstanceId());
+                        return ManageResponse.returnFail(actionResponse.getCode(), actionResponse.getFault());
+                    }
+                }
+            }
+
+            //删除floating ip
+            if (!ObjectUtils.isEmpty(virtual.getFloatingIpId())) {
+                NetFloatingIP floatingIP = os.networking().floatingip().get(virtual.getFloatingIpId());
+                if (!ObjectUtils.isEmpty(floatingIP)) {
+                    ActionResponse actionResponse = os.networking().floatingip().delete(virtual.getFloatingIpId());
+                    if (actionResponse.getCode() != 204) {
+                        log.error("删除openstack浮动ip：{}失败，失败原因：{}", virtual.getFloatingIp(), actionResponse.getFault());
+                    }
+                }
+            }
+
+            //删除qos
+            if (!ObjectUtils.isEmpty(virtual.getPolicyId())) {
+                NeutronNetQosPolicy policy = (NeutronNetQosPolicy) os.networking().netQosPolicy().get(virtual.getPolicyId());
+                if (!ObjectUtils.isEmpty(policy)) {
+                    List<Map<String, String>> policyRules = policy.getRules();
+                    if (!CollectionUtils.isEmpty(policyRules)) {
+                        for (Map<String, String> policyRule : policyRules) {
+                            String ruleId = policyRule.get("id");
+                            ActionResponse actionResponse = os.networking().netQosPolicyBLRule().delete(policy.getId(), ruleId);
+                            if (actionResponse.getCode() != 204) {
+                                log.error("删除openstack带宽规则：{}失败，失败原因：{}", ruleId, actionResponse.getFault());
+                            }
+                        }
+                    }
+                    ActionResponse actionResponse = os.networking().netQosPolicy().delete(policy.getId());
+                    if (actionResponse.getCode() != 204) {
+                        log.error("删除openstack qos策略：{}失败，失败原因：{}", policy.getId(), actionResponse.getFault());
+                    }
+                }
+            }
+
+            //删除volume
+            if (!ObjectUtils.isEmpty(virtual.getVolumeId())) {
+                //解绑volume
+                Volume volume = os.blockStorage().volumes().get(virtual.getVolumeId());
+                if (!ObjectUtils.isEmpty(volume)) {
+                    ActionResponse actionResponse = os.compute().servers()
+                            .detachVolume(virtual.getInstanceId(), virtual.getVolumeId());
+                    if (actionResponse.getCode() != 200) {
+                        log.error("解绑openstack卷存储：{}失败，失败原因：{}", virtual.getVolumeId(), actionResponse.getFault());
+                    }
+                    //删除volume
+                    actionResponse = os.blockStorage().volumes().forceDelete(virtual.getVolumeId());
+                    if (actionResponse.getCode() != 202) {
+                        log.error("删除openstack卷存储：{}失败，失败原因：{}", virtual.getVolumeId(), actionResponse.getFault());
+                    }
+                }
+            }
+
+            virtual.setIsDelete(1);
+            virtual.setDeleteTime(new Date());
+            virtualMapper.updateById(virtual);
+        }
+
+        return ManageResponse.returnSuccess();
+    }
+
+    @Override
+    public ManageResponse actionInstance(InvokeInstanceDto invokeInstanceDto, boolean start) {
+        Integer vid = invokeInstanceDto.getDesktopIds().get(0);
+        Virtual virtual = virtualMapper.selectById(vid);
         OpenstackAuth openstackAuth = checkAuthUser(virtual.getCustomerId());
         if (ObjectUtils.isEmpty(openstackAuth)) {
             return ManageResponse.returnFail(100, "用户资源不存在");
@@ -292,69 +383,18 @@ public class OpenstackCombineServiceImpl implements OpenstackCombineService {
                 openstackAuth.getType(), 3, null);
         OSClient.OSClientV3 os = ((OSClient.OSClientV3) openstackService.getAuthToke(reqUserDto1).getData());
         os.useRegion(region.getRealName());
-
-        //删除instance
-        if (!ObjectUtils.isEmpty(virtual.getInstanceId())) {
-            Server server = os.compute().servers().get(virtual.getInstanceId());
-            if (!ObjectUtils.isEmpty(server)) {
-                ActionResponse actionResponse = os.compute().servers().delete(virtual.getInstanceId());
-                if (actionResponse.getCode() != 200) {
-                    log.error("删除openstack实例：{}失败", virtual.getInstanceId());
-                    return ManageResponse.returnFail(actionResponse.getCode(), actionResponse.getFault());
-                }
-            }
+        Action action;
+        if (start){
+            action = Action.START;
+        }else {
+            action = Action.STOP;
         }
-
-        //删除floating ip
-        if (!ObjectUtils.isEmpty(virtual.getFloatingIpId())) {
-            NetFloatingIP floatingIP = os.networking().floatingip().get(virtual.getFloatingIpId());
-            if (!ObjectUtils.isEmpty(floatingIP)) {
-                ActionResponse actionResponse = os.networking().floatingip().delete(virtual.getFloatingIpId());
-                if (actionResponse.getCode() != 204) {
-                    log.error("删除openstack浮动ip：{}失败，失败原因：{}", virtual.getFloatingIp(), actionResponse.getFault());
-                }
-            }
+        ActionResponse actionResponse = os.compute().servers().action(virtual.getInstanceId(), action);
+        //todo 1.开/关机记录、订单；2.操作日志相关
+        if (actionResponse.getCode() == 200) {
+            return ManageResponse.returnSuccess();
         }
-
-        //删除qos
-        if (!ObjectUtils.isEmpty(virtual.getPolicyId())) {
-            NeutronNetQosPolicy policy = (NeutronNetQosPolicy) os.networking().netQosPolicy().get(virtual.getPolicyId());
-            if (!ObjectUtils.isEmpty(policy)) {
-                List<Map<String, String>> policyRules = policy.getRules();
-                if (!CollectionUtils.isEmpty(policyRules)) {
-                    for (Map<String, String> policyRule : policyRules) {
-                        String ruleId = policyRule.get("id");
-                        ActionResponse actionResponse = os.networking().netQosPolicyBLRule().delete(policy.getId(), ruleId);
-                        if (actionResponse.getCode() != 204) {
-                            log.error("删除openstack带宽规则：{}失败，失败原因：{}", ruleId, actionResponse.getFault());
-                        }
-                    }
-                }
-                ActionResponse actionResponse = os.networking().netQosPolicy().delete(policy.getId());
-                if (actionResponse.getCode() != 204) {
-                    log.error("删除openstack qos策略：{}失败，失败原因：{}", policy.getId(), actionResponse.getFault());
-                }
-            }
-        }
-
-        //删除volume
-        if (!ObjectUtils.isEmpty(virtual.getVolumeId())) {
-            //解绑volume
-            Volume volume = os.blockStorage().volumes().get(virtual.getVolumeId());
-            if (!ObjectUtils.isEmpty(volume)) {
-                ActionResponse actionResponse = os.compute().servers()
-                        .detachVolume(virtual.getInstanceId(), virtual.getVolumeId());
-                if (actionResponse.getCode() != 200) {
-                    log.error("解绑openstack卷存储：{}失败，失败原因：{}", virtual.getVolumeId(), actionResponse.getFault());
-                }
-                //删除volume
-                actionResponse = os.blockStorage().volumes().forceDelete(virtual.getVolumeId());
-                if (actionResponse.getCode() != 202) {
-                    log.error("删除openstack卷存储：{}失败，失败原因：{}", virtual.getVolumeId(), actionResponse.getFault());
-                }
-            }
-        }
-        return ManageResponse.returnSuccess();
+        return ManageResponse.returnFail(actionResponse.getCode(), actionResponse.getFault());
     }
 
     @Override

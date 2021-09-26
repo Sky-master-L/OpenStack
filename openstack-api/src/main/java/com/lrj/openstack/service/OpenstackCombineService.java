@@ -19,7 +19,10 @@ public interface OpenstackCombineService {
 
     ManageResponse createInstance(InvokeInstanceDto invokeInstanceDto);
 
-    ManageResponse destroyInstance(Virtual virtual);
-
     String checkResource(InvokeInstanceDto invokeInstanceDto);
+
+    ManageResponse destroyInstance(InvokeInstanceDto invokeInstanceDto);
+
+    ManageResponse actionInstance(InvokeInstanceDto invokeInstanceDto, boolean start);
+
 }

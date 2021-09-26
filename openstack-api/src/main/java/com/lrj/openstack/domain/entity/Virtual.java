@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -18,7 +17,6 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class Virtual implements Serializable {
 
     private static final long serialVersionUID=1L;
@@ -85,6 +83,16 @@ public class Virtual implements Serializable {
      * openstack区域id
      */
     private Integer regionId;
+
+    /**
+     * 是否删除（0否，1是）
+     */
+    private Integer isDelete;
+
+    /**
+     * 删除时间
+     */
+    private Date deleteTime;
 
 
 }
