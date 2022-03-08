@@ -48,6 +48,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 /**
  * ClassName: OpenstackCombineServiceImpl
@@ -94,6 +95,8 @@ public class OpenstackCombineServiceImpl implements OpenstackCombineService {
     private String ipEnd;
     @Value("${openstack.network.ip.cidr}")
     private String cidr;
+
+    private static final int OVER_NUMBER = 8;
 
     private static String DESKTOP_DES_PREV = "为青椒云用户桌面:";
     private static String FLOATING_IP_DES_LAST = "创建floatingIp";
@@ -432,26 +435,42 @@ public class OpenstackCombineServiceImpl implements OpenstackCombineService {
         List<? extends Hypervisor> hypervisors = os.compute().hypervisors().list();
         Flavor flavor = os.compute().flavors().get(invokeInstanceDto.getFlavorId());
         String msg = null;
-        for (Hypervisor hypervisor : hypervisors) {
-            if (hypervisor.getFreeRam() < flavor.getRam() * invokeInstanceDto.getNum()) {
-                log.error("当前计算节点内存总量为：{}，小于当前所需内存大小：{}", hypervisor.getFreeRam(), flavor.getRam());
-                msg = "内存不足";
-                continue;
-            }
-            if (hypervisor.getFreeDisk() < flavor.getDisk() * invokeInstanceDto.getNum()) {
-                log.error("当前计算节点系统盘总量为：{}，小于当前所需系统盘大小：{}", hypervisor.getFreeDisk(), flavor.getDisk());
-                msg = "系统盘不足";
-                continue;
-            }
-            int freeCpu = hypervisor.getVirtualCPU() - hypervisor.getVirtualUsedCPU();
-            if (freeCpu < flavor.getVcpus() * invokeInstanceDto.getNum()) {
-                log.error("当前计算节点CPU总数为：{}，小于当前所需CPU数量：{}", freeCpu, flavor.getVcpus());
-                msg = "CPU数量不足";
-                continue;
-            }
+//        for (Hypervisor hypervisor : hypervisors) {
+//            if (hypervisor.getFreeRam() < flavor.getRam() * invokeInstanceDto.getNum()) {
+//                log.error("当前计算节点内存总量为：{}，小于当前所需内存大小：{}", hypervisor.getFreeRam(), flavor.getRam());
+//                msg = "内存不足";
+//                continue;
+//            }
+//            if (hypervisor.getFreeDisk() < flavor.getDisk() * invokeInstanceDto.getNum()) {
+//                log.error("当前计算节点系统盘总量为：{}，小于当前所需系统盘大小：{}", hypervisor.getFreeDisk(), flavor.getDisk());
+//                msg = "系统盘不足";
+//                continue;
+//            }
+//            int freeCpu = hypervisor.getVirtualCPU() - hypervisor.getVirtualUsedCPU();
+//            if (freeCpu < flavor.getVcpus() * invokeInstanceDto.getNum()) {
+//                log.error("当前计算节点CPU总数为：{}，小于当前所需CPU数量：{}", freeCpu, flavor.getVcpus());
+//                msg = "CPU数量不足";
+//                continue;
+//            }
+//        }
+//        if (msg != null) {
+//            return msg;
+//        }
+
+        List<? extends Hypervisor> cpuList = hypervisors.stream().filter(x -> (x.getVirtualCPU() * OVER_NUMBER - x.getVirtualUsedCPU()) >= flavor.getVcpus() * invokeInstanceDto.getNum()).collect(Collectors.toList());
+        List<? extends Hypervisor> ramList = hypervisors.stream().filter(x -> x.getFreeRam() >= flavor.getRam() * invokeInstanceDto.getNum()).collect(Collectors.toList());
+        List<? extends Hypervisor> diskList = hypervisors.stream().filter(x -> x.getFreeDisk() >= flavor.getDisk() * invokeInstanceDto.getNum()).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(cpuList)) {
+            log.error("当前计算节点CPU总数小于当前所需CPU数量：{}", flavor.getVcpus() * invokeInstanceDto.getNum());
+            return "CPU数量不足";
         }
-        if (msg != null) {
-            return msg;
+        if (CollectionUtils.isEmpty(ramList)) {
+            log.error("当前计算节点内存总量小于当前所需内存大小：{}", flavor.getRam() * invokeInstanceDto.getNum());
+            return "内存不足";
+        }
+        if (CollectionUtils.isEmpty(diskList)) {
+            log.error("当前计算节点系统盘总量小于当前所需系统盘大小：{}", flavor.getDisk() * invokeInstanceDto.getNum());
+            return "系统盘不足";
         }
 
         if (!ObjectUtils.isEmpty(invokeInstanceDto.getVolumeSize())) {
@@ -939,8 +958,7 @@ public class OpenstackCombineServiceImpl implements OpenstackCombineService {
     /**
      * 实例创建记录
      *
-     * @param regionName
-     * @param flavorId
+     * @param virtualIds
      * @return
      */
     private Integer createTask(List<Integer> virtualIds) {
