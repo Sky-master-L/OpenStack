@@ -40,7 +40,7 @@ AWS、阿里云、腾讯云等；开源的OpenStack
 #### 3.1nova服务
 
 核心的虚拟化管理程序，实例的生命周期（创建、删除、重启虚拟机）管理，使用libvirt API与Hypervisors交互虚拟化资源。
-![static/nova.jpg](nova.png)
+![nova.png](./static/nova.png)
 
 
 分为两类节点：
@@ -72,7 +72,7 @@ nova启动实例工作流程：
 #### 3.2keystone服务
 
 提供身份认证和授权的组件，类似于一个服务总线，通过keystone注册endpoint，任何服务之间相互调用，必须经过keystone进行身份验证。
-![static/keystone.jpg](keystone.jpg)
+![keystone.jpg](./static/keystone.jpg)
 包含domain、project、user、role、token
 
 - domain - 表示 project 和 user 的集合，在公有云或者私有云中常常表示一个客户
@@ -86,7 +86,7 @@ nova启动实例工作流程：
 #### 3.3neutron服务
 
 提供云计算虚拟环境下网络的功能，包含二层交换、三层路由、负载均衡、防火墙等，可以灵活的划分物理网络，在多租户的环境下给用户提供单独的网络环境。
-![static/neutron.png](neutron.png)
+![neutron.png](./static/neutron.png)
 包含的模块：Networks、Roters、Security Groups、Floating IPs
 
 VLAN：虚拟局域网，将同一网络划分为多个逻辑上的虚拟子网，收到广播报文时，仅仅在其所在的VLAN中进行广播，防止广播泛滥；最大的ID数量为4096个（0~4095），可用的为1~4094；
@@ -148,7 +148,7 @@ DNAT：目标网络地址转换，需要先设置浮动IP，浮动IP关联对应
 #### 3.5Cinder服务
 
 块存储服务，提供对volume从创建到删除的整个生命周期的管理。从实例角度来看，挂载的每一个volume都是一块硬盘。
-![static/cinder.png](cinder.png)
+![cinder.png](./static/cinder.png)
 架构：Cinder Client、Api、Volume、Scheduler、Backup、Database。
 
 volume支持多种Provider，包括LVM、NFS、Ceph、Emc
@@ -156,7 +156,7 @@ volume支持多种Provider，包括LVM、NFS、Ceph、Emc
  #### 3.6Swift服务
 
 对象存储服务（Object Storage）软件层面引入一致性散列技术和数据冗余性，牺牲一定程度上的数据一致性来达到高可用性和可伸缩性，支持多用户模式、容器和对象读写操作，解决互联网下非结构化数据存储问题。
-![static/swift.png](swift.png)
+![swift.png](./static/swift.png)
 组件：
 
 - 代理服务（Proxy Server）：对外提供对服务的Api，会根据环的信息来查找服务地址并转发用户的请求到相应的账户、容器或者对象服务；
