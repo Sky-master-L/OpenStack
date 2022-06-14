@@ -1,0 +1,1912 @@
+{
+	"info": {
+		"_postman_id": "7b37858e-72c7-4c5e-8479-56052181bcfa",
+		"name": "openstack4j调用接口",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "keystone",
+			"item": [
+				{
+					"name": "获取token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n    \"passwd\": \"QJcloud#123\",\r\n    \"projectName\": \"admin\",\r\n    \"domainName\": \"default\",\r\n    \"type\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"projectDto\": {\r\n        \"projectName\": \"OS4J\",\r\n        \"description\": \"this is a project create by os4j\",\r\n        \"enable\": false\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/project/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"project",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"projectDto\": {\r\n        \"projectName\": \"\",\r\n        \"domainId\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/project/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"project",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"projectDto\": {\r\n        \"projectId\": \"4728f16099654ebf896c93519f2183bf\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/project/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"project",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"userDto\": {\r\n        \"userName\": \"lrj\",\r\n        \"passwd\": \"123456\",\r\n        \"enabled\": true,\r\n        \"projectId\": \"900c817844d64ea0ae846525dc4e2e5d\",\r\n        \"domainId\": \"default\",\r\n        \"description\": \"this is a user created by os4j api\",\r\n        \"email\": \"1134482761@qq.com\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/user/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"userDto\": {\r\n        \"userId\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/user/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"userDto\": {\r\n        \"userId\": \"de03a17beddb44b58bbd690bd8d60107\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/user/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"user",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"roleDto\": {\r\n        \"domainId\": \"\",\r\n        \"roleName\": \"roleForOs4j\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/role/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"role",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "分配user到指定project 的role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"roleDto\": {\r\n        \"projectId\": \"900c817844d64ea0ae846525dc4e2e5d\",\r\n        \"userId\": \"4e623dfe73da47f58cd91d5341287fc9\",\r\n        \"roleId\": \"6e2d4be2190441a0a3f727391930f85c\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/role/grant",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"role",
+								"grant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "检查user到指定project 的role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"roleDto\": {\r\n        \"projectId\": \"900c817844d64ea0ae846525dc4e2e5d\",\r\n        \"userId\": \"4e623dfe73da47f58cd91d5341287fc9\",\r\n        \"roleId\": \"6e2d4be2190441a0a3f727391930f85c\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/role/check",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"role",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "撤销user已分配project 的role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"roleDto\": {\r\n        \"projectId\": \"900c817844d64ea0ae846525dc4e2e5d\",\r\n        \"userId\": \"4e623dfe73da47f58cd91d5341287fc9\",\r\n        \"roleId\": \"6e2d4be2190441a0a3f727391930f85c\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/role/revoke",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"role",
+								"revoke"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"roleDto\": {\r\n        \"roleId\": \"ff5aefb3ac894510af50d4c72b17daf9\",\r\n        \"roleName\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/role/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"role",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除role",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"roleDto\": {\r\n        \"roleId\": \"ff5aefb3ac894510af50d4c72b17daf9\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/role/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"role",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询region",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"regionDto\": {\r\n        \"regionId\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/region/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"region",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "切换region",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"regionDto\": {\r\n        \"regionId\": \"RegionOne\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/region/switch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"region",
+								"switch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新region",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"regionDto\": {\r\n        \"regionId\": \"QJCloud-test\",\r\n        \"description\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/keystone/region/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"keystone",
+								"region",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "nova",
+			"item": [
+				{
+					"name": "创建flavor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"flavorDto\": {\r\n        \"name\": \"4C8G for openstack4j\",\r\n        \"ram\": 8192,\r\n        \"vcpus\": 4,\r\n        \"disk\": 80,\r\n        \"rxtxFactor\": 2.0,\r\n        \"public\": true\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/flavor/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"flavor",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询flavor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"fid\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/flavor/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"flavor",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除flavor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"fid\": \"ca253614-81b9-474e-a907-5812d9a22ea8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/flavor/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"flavor",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建floatIP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"floatIpDto\": {\r\n      \"poolName\": \"extNet\" \r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/floatIp/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"floatIp",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除floatIP",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"floatIpDto\": {\r\n      \"floatIpId\": \"02b48b57-8e34-4aa8-8a81-ef44dbd2c0c7\" \r\n   } \r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/floatIp/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"floatIp",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建instance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"instanceDto\": {\r\n        \"name\": \"first instance for openstack4j\",\r\n        \"flavorId\": \"25905cc0-8a62-44a4-90b0-2a85f1e22456\",\r\n        \"imageId\": \"a5ee7f77-4934-4ccd-86ec-a598a196e333\",\r\n        \"networkIds\": [\r\n            \"96899d38-fc3b-489f-95f7-250420b8f0dc\"\r\n        ],\r\n        \"personalityPath\": \"#!bin/bash\",\r\n        \"personalityValue\": \"echo 123456|passwd --stdin centos\",\r\n        \"securityGroups\": [\r\n            \"ssh_test\",\r\n            \"default\"\r\n        ],\r\n        \"num\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/instance/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"instance",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询instance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"instanceDto\": {\r\n        \"instanceId\": \"\",\r\n        \"details\": false\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/instance/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"instance",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除instance",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"instanceDto\": {\r\n        \"instanceId\": \"9df57f30-1d83-4b8b-90f4-ac1446ec3d82\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/instance/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"instance",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "重启instance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"instanceDto\": {\r\n        \"instanceId\": \"ab5b52d6-1268-4322-8a0d-78bce2b18c69\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/instance/reboot",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"instance",
+								"reboot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "操作instance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"instanceDto\": {\r\n        \"instanceId\": \"ab5b52d6-1268-4322-8a0d-78bce2b18c69\",\r\n        \"action\": \"START\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/instance/action",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"instance",
+								"action"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "给实例添加volume",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"instanceDto\": {\r\n        \"instanceId\": \"da27ddb0-78f7-4b16-9d14-2d44029bbb98\",\r\n        \"volumeId\": \"a32084e7-541b-4b71-9ed3-7798b7a0a0e7\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/instance/addVolume",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"instance",
+								"addVolume"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "从实例移除volume",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"instanceDto\": {\r\n        \"instanceId\": \"da27ddb0-78f7-4b16-9d14-2d44029bbb98\",\r\n        \"volumeId\": \"a32084e7-541b-4b71-9ed3-7798b7a0a0e7\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/instance/removeVolume",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"instance",
+								"removeVolume"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "给实例添加floatIP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"floatIpDto\": {\r\n      \"floatIp\": \"10.121.89.96\",\r\n      \"instanceId\": \"0fa0f745-96f4-468a-8279-01eaa380b311\"\r\n   } \r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/floatIp/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"floatIp",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "从实例移除floatIP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"floatIpDto\": {\r\n      \"floatIp\": \"10.121.89.96\",\r\n      \"instanceId\": \"0fa0f745-96f4-468a-8279-01eaa380b311\"\r\n   } \r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/floatIp/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"floatIp",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询计算节点image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"imgId\": \"9439aef6-0dd8-4875-8f5c-37ad3eea54de\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/image/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"image",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "neutron",
+			"item": [
+				{
+					"name": "创建network",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"networkName\": \"netFor4j\",\r\n      \"projectId\": \"b14a59f829e84ceea03f01483458b2cd\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询network",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"networkId\": \"446df794-420b-4b0b-b3bc-c8e471f25492\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除network",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"networkId\": \"b9917673-9e9d-4160-a0d1-c9d186faa99d\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建subnet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"subnetName\": \"subFor4j\",\r\n      \"projectId\": \"b14a59f829e84ceea03f01483458b2cd\",\r\n      \"networkId\": \"96899d38-fc3b-489f-95f7-250420b8f0dc\",\r\n      \"ipStart\": \"172.16.0.2\",\r\n      \"ipEnd\": \"172.16.0.100\",\r\n      \"cidr\": \"172.16.0.0/24\",\r\n      \"nameServers\": [\r\n          \"8.8.8.8\",\r\n          \"114.114.114.114\"\r\n      ]\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/subnet/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"subnet",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询subnet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"subnetId\": \"0939b37e-7b2e-47eb-931e-e3df68141e53\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/subnet/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"subnet",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除subnet",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"subnetId\": \"59fb5255-3e3b-4e16-b09f-3f99c8ee1c51\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/subnet/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"subnet",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建router",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"routerName\": \"routerFor4j\",\r\n      \"networkId\": \"a163cbcd-4fa7-4987-876d-41d93e9ea4c9\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/router/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"router",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询router",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"routerId\": \"71c3b7da-0ce0-4957-aa5e-a16c36bfa936\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/router/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"router",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除router",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"routerId\": \"71c3b7da-0ce0-4957-aa5e-a16c36bfa936\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/router/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"router",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "给子网添加router",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"routerId\": \"71c3b7da-0ce0-4957-aa5e-a16c36bfa936\",\r\n      \"subnetId\": \"a8d50418-e283-422c-8437-f842517c6f2b\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/router/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"router",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "从子网移除router",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"routerId\": \"71c3b7da-0ce0-4957-aa5e-a16c36bfa936\",\r\n      \"subnetId\": \"a8d50418-e283-422c-8437-f842517c6f2b\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/router/remove",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"router",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "给floating IP绑定qos-policy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"qosDto\": {\r\n        \"fid\": \"9e971c6a-9cab-4a98-9c1d-cfc73aa3bdba\",\r\n        \"policyId\": \"06c9993d-83c5-4b73-92bb-53e9a7e66d0f\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/floatIp/bind",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"floatIp",
+								"bind"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建qos-policy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"qosDto\": {\r\n      \"policyName\": \"policyFor4j\",\r\n      \"share\": true,\r\n      \"def\": false,\r\n      \"description\": \"this is a test policy by os4j\",\r\n      \"projectId\": \"b14a59f829e84ceea03f01483458b2cd\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/qos/policy/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"qos",
+								"policy",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询qos-policy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"qosDto\": {\r\n      \"policyId\": \"\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/qos/policy/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"qos",
+								"policy",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新qos-policy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"networkDto\": {\r\n      \"policyName\": \"policyFor4j-test update\",\r\n      \"share\": false,\r\n      \"def\": true,\r\n      \"description\": \"this is a test policy by os4j\",\r\n      \"policyId\": \"06c9993d-83c5-4b73-92bb-53e9a7e66d0f\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/qos/policy/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"qos",
+								"policy",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除qos-policy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"qosDto\": {\r\n      \"policyId\": \"849471d9-864a-47fe-b408-d100640ae48d\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/qos/policy/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"qos",
+								"policy",
+								"del"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建qos-bandwidth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"qosDto\": {\r\n      \"policyId\": \"06c9993d-83c5-4b73-92bb-53e9a7e66d0f\",\r\n      \"direction\": \"egress\",\r\n      \"maxKbps\": 2000\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/qos/policy/bandwidth/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"qos",
+								"policy",
+								"bandwidth",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询qos-bandwidth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"qosDto\": {\r\n      \"policyId\": \"06c9993d-83c5-4b73-92bb-53e9a7e66d0f\",\r\n      \"bandwidthId\": \"\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/qos/policy/bandwidth/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"qos",
+								"policy",
+								"bandwidth",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新qos-bandwidth",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"qosDto\": {\r\n      \"policyId\": \"06c9993d-83c5-4b73-92bb-53e9a7e66d0f\",\r\n      \"bandwidthId\":\"3b636531-7d77-4a1a-896f-af91954a258a\",\r\n      \"maxKbps\": 1000\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/qos/policy/bandwidth/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"qos",
+								"policy",
+								"bandwidth",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除qos-bandwidth",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"qosDto\": {\r\n      \"policyId\": \"06c9993d-83c5-4b73-92bb-53e9a7e66d0f\",\r\n      \"bandwidthId\":\"3b636531-7d77-4a1a-896f-af91954a258a\",\r\n      \"maxKbps\": 1000\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/network/qos/policy/bandwidth/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"network",
+								"qos",
+								"policy",
+								"bandwidth",
+								"del"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "glance",
+			"item": [
+				{
+					"name": "查询image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n    \"imgId\": \"9439aef6-0dd8-4875-8f5c-37ad3eea54de\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/nova/image/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"nova",
+								"image",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cinder",
+			"item": [
+				{
+					"name": "创建volume",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"volumeDto\": {\r\n      \"volumeName\": \"volumnFor4j\",\r\n      \"description\": \"this is a storage volume\",\r\n      \"size\": 20,\r\n      \"imageId\": \"9439aef6-0dd8-4875-8f5c-37ad3eea54de\",\r\n      \"bootable\": true\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/cinder/volume/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"cinder",
+								"volume",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查询volume",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"volumeDto\": {\r\n      \"volumeId\": \"494510ab-33fb-4194-97cb-5d209d167f5e\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/cinder/volume/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"cinder",
+								"volume",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除volume",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authUserDto\": {\r\n        \"userId\": \"93a1794826d24bf4bf167757e1470bdf\",\r\n        \"passwd\": \"QJcloud#123\",\r\n        \"projectName\": \"admin\",\r\n        \"domainName\": \"default\",\r\n        \"type\": 3\r\n    },\r\n   \"volumeDto\": {\r\n      \"volumeId\": \"494510ab-33fb-4194-97cb-5d209d167f5e\"\r\n   } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8445/api/qjy/manage/openstack/cinder/volume/del",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8445",
+							"path": [
+								"api",
+								"qjy",
+								"manage",
+								"openstack",
+								"cinder",
+								"volume",
+								"del"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
